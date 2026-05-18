@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RIASEC Career Direction Builder</title>
+  <style>
+    :root {
+      --navy: #0f172a;
+      --slate: #334155;
+      --muted: #64748b;
+      --light: #f8fafc;
+      --border: #e2e8f0;
+      --purple: #7c3aed;
+      --purple-dark: #5b21b6;
+      --gold: #f59e0b;
+      --teal: #14b8a6;
+      --blue: #2563eb;
+      --green: #16a34a;
+      --orange: #ea580c;
+      --red: #dc2626;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", Arial, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+      color: var(--navy);
+    }
+
+    .top-bar {
+      height: 8px;
+      background: linear-gradient(90deg, var(--purple), var(--blue), var(--teal));
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    .hero {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      margin-bottom: 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 34px;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--slate);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .badge {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: var(--slate);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .intro-card {
+      background: linear-gradient(135deg, var(--navy), #312e81);
+      color: white;
+      border-radius: 22px;
+      padding: 24px;
+      min-height: 210px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-card::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      right: -50px;
+      bottom: -50px;
+      background: rgba(245, 158, 11, 0.26);
+      border-radius: 50%;
+    }
+
+    .intro-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .intro-text {
+      font-size: 14px;
+      color: #e2e8f0;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 24px;
+    }
+
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+    }
+
+    .panel h2 {
+      margin: 0 0 18px;
+      font-size: 22px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      color: var(--purple);
+      font-weight: 800;
+      margin: 24px 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--slate);
+      margin-bottom: 7px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 13px;
+      font-size: 14px;
+      color: var(--navy);
+      background: #fff;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .score-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    .score-box label {
+      margin-bottom: 8px;
+    }
+
+    .score-box input {
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .hint {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 16px;
+      padding: 13px 18px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: white;
+      flex: 1;
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: var(--slate);
+    }
+
+    .btn-save {
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+    }
+
+    .result-placeholder {
+      border: 2px dashed #cbd5e1;
+      border-radius: 22px;
+      padding: 36px 24px;
+      text-align: center;
+      color: var(--muted);
+      background: #f8fafc;
+    }
+
+    .result-card {
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .result-card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: var(--navy);
+    }
+
+    .result-card p, .result-card li {
+      color: var(--slate);
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    .code-display {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 14px 0 4px;
+    }
+
+    .code-letter {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: 900;
+      box-shadow: 0 10px 18px rgba(15, 23, 42, 0.14);
+    }
+
+    .R { background: #64748b; }
+    .I { background: #2563eb; }
+    .A { background: #7c3aed; }
+    .S { background: #14b8a6; }
+    .E { background: #ea580c; }
+    .C { background: #16a34a; }
+
+    .pathway-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .mini-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .mini-card strong {
+      color: var(--navy);
+    }
+
+    .score-bar {
+      margin: 8px 0 12px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 34px 1fr 28px;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 7px;
+      font-size: 13px;
+      color: var(--slate);
+    }
+
+    .bar-bg {
+      height: 9px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .timeline {
+      border-left: 3px solid #ddd6fe;
+      padding-left: 16px;
+      margin-top: 12px;
+    }
+
+    .timeline-item {
+      margin-bottom: 14px;
+    }
+
+    .timeline-item strong {
+      display: block;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+
+    .disclaimer {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid, .main-grid, .form-grid, .pathway-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .score-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .panel, .hero {
+        box-shadow: none;
+      }
+
+      .btn-row, .hero, .panel:first-child {
+        display: none;
+      }
+
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 0;
+      }
+
+      .panel {
+        border: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-bar"></div>
+
+  <div class="container">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>RIASEC Career Direction Builder</h1>
+          <p class="subtitle">
+            完成職業興趣小測驗後，輸入你的六項分數及個人目標。
+            這個工具會根據你的興趣組合、年齡、學習階段和未來能力取向，
+            生成初步生涯方向、能力發展建議及下一步行動。
+          </p>
+
+          <div class="badge-row">
+            <span class="badge">Career Exploration</span>
+            <span class="badge">RIASEC</span>
+            <span class="badge">Future Skills</span>
+            <span class="badge">Business Readiness</span>
+          </div>
+        </div>
+
+        <div class="intro-card">
+          <div class="intro-title">Your Direction Builder</div>
+          <div class="intro-text">
+            這不是考試，也沒有標準答案。它幫你把「我喜歡做甚麼」轉化成
+            「我可以如何發展自己」。不論你偏向創意、分析、助人、領導、實踐或系統整理，
+            未來職場和商業世界都需要這些能力。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="main-grid">
+      <section class="panel">
+        <h2>資料輸入</h2>
+
+        <div class="section-title">Basic Information</div>
+        <div class="form-grid">
+          <div>
+            <label for="name">姓名 / Nickname</label>
+            <input id="name" type="text" placeholder="例如：Chris" />
+          </div>
+
+          <div>
+            <label for="age">年齡</label>
+            <input id="age" type="number" min="10" max="80" placeholder="例如：17" />
+          </div>
+
+          <div>
+            <label for="gender">性別</label>
+            <select id="gender">
+              <option value="">請選擇</option>
+              <option>女</option>
+              <option>男</option>
+              <option>非二元 / Non-binary</option>
+              <option>不想透露</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="stage">目前階段</label>
+            <select id="stage">
+              <option value="">請選擇</option>
+              <option>初中學生</option>
+              <option>高中學生</option>
+              <option>副學士 / 高級文憑學生</option>
+              <option>大學生</option>
+              <option>準備升學</option>
+              <option>準備就業</option>
+              <option>在職人士 / 轉型探索</option>
+              <option>其他</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section-title">Readiness & Goal</div>
+        <div class="form-grid">
+          <div>
+            <label for="goalClarity">你對未來目標的清晰程度</label>
+            <select id="goalClarity">
+              <option value="">請選擇</option>
+              <option>未清晰，只想探索</option>
+              <option>有幾個方向，但未決定</option>
+              <option>已有大概方向</option>
+              <option>已有明確目標</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="preferredMode">你較喜歡的學習 / 發展方式</label>
+            <select id="preferredMode">
+              <option value="">請選擇</option>
+              <option>實作活動 / Project-based</option>
+              <option>研究分析 / Research-based</option>
+              <option>創作展示 / Creative output</option>
+              <option>與人合作 / Team-based</option>
+              <option>比賽挑戰 / Competition-based</option>
+              <option>實習工作 / Workplace-based</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <label for="goal">你的目標 / 夢想 / 想探索的方向</label>
+          <textarea id="goal" placeholder="例如：我想做市場推廣、創業、音樂製作、空中服務、社工、數據分析、管理工作等。"></textarea>
+        </div>
+
+        <div class="section-title">RIASEC Scores</div>
+        <p class="hint">請輸入你在工作紙計算後的分數。每項通常是 0–3 分。</p>
+
+        <div class="score-grid">
+          <div class="score-box">
+            <label for="r">R 實務型</label>
+            <input id="r" type="number" min="0" max="3" value="0" />
+          </div>
+
+          <div class="score-box">
+            <label for="i">I 研究型</label>
+            <input id="i" type="number" min="0" max="3" value="0" />
+          </div>
+
+          <div class="score-box">
+            <label for="a">A 藝術型</label>
+            <input id="a" type="number" min="0" max="3" value="0" />
+          </div>
+
+          <div class="score-box">
+            <label for="s">S 社會型</label>
+            <input id="s" type="number" min="0" max="3" value="0" />
+          </div>
+
+          <div class="score-box">
+            <label for="e">E 企業型</label>
+            <input id="e" type="number" min="0" max="3" value="0" />
+          </div>
+
+          <div class="score-box">
+            <label for="c">C 常規型</label>
+            <input id="c" type="number" min="0" max="3" value="0" />
+          </div>
+        </div>
+
+        <div class="section-title">Future Skills</div>
+        <div>
+          <label for="skill">你最想發展的未來能力</label>
+          <select id="skill">
+            <option value="">請選擇</option>
+            <option>實踐執行</option>
+            <option>數據分析</option>
+            <option>創意表達</option>
+            <option>溝通協作</option>
+            <option>領導推動</option>
+            <option>系統管理</option>
+          </select>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-primary" onclick="generateAdvice()">生成我的未來路向</button>
+          <button class="btn-secondary" onclick="resetForm()">重設</button>
+          <button class="btn-save" onclick="saveAsPDF()">儲存結果 PDF</button>
+        </div>
+
+        <div class="disclaimer">
+          私隱提示：此網頁版本只在你的瀏覽器內即時計算，不會自動上傳資料。
+          結果只作生涯探索及課堂討論用途，不應視為正式心理測驗或唯一升學/就業建議。
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>個人生涯方向建議</h2>
+        <div id="result">
+          <div class="result-placeholder">
+            請先輸入資料及 RIASEC 分數，然後按「生成我的未來路向」。
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const typeInfo = {
+      R: {
+        name: "實務型",
+        ability: "實踐執行",
+        colorClass: "R",
+        description: "你偏向喜歡實際操作、處理工具、設備、產品或具體任務。你通常重視可見成果，喜歡把事情真正做出來。",
+        business: "在商業世界中，這種能力可連繫到營運管理、物流、供應鏈、船務營運、港口管理、活動執行及服務流程改善。",
+        pathways: ["營運管理", "物流與供應鏈", "船務營運", "港口管理", "貨運代理", "服務流程管理"],
+        activities: ["參與校內活動執行組", "設計一個服務流程改善小項目", "到門店、活動、物流或營運部門觀察工作流程"]
+      },
+      I: {
+        name: "研究型",
+        ability: "數據分析",
+        colorClass: "I",
+        description: "你偏向喜歡分析問題、研究資料、找出原因和解決複雜問題。你通常重視邏輯、證據和深度思考。",
+        business: "在現代商業環境中，這種能力十分適合數據分析、市場研究、金融分析、風險管理、航運科技及商業策略決策。",
+        pathways: ["商業數據分析", "市場研究", "航運金融分析", "風險管理", "航運科技與數碼營運", "策略與顧問"],
+        activities: ["做一份簡單問卷及分析報告", "學習 Excel / Google Sheets 數據整理", "分析一個品牌、行業或物流市場的資料"]
+      },
+      A: {
+        name: "藝術型",
+        ability: "創意表達",
+        colorClass: "A",
+        description: "你偏向喜歡創作、設計、影像、音樂、文字或用新方式表達想法。你通常重視風格、想像力和獨特表達。",
+        business: "商業世界同樣需要創意，特別是在品牌建立、內容行銷、廣告、市場推廣、社交媒體及體驗設計方面。",
+        pathways: ["品牌與市場推廣", "內容創作", "廣告與社交媒體", "創意產業管理"],
+        activities: ["製作一個 IG / TikTok content mini campaign", "設計一個品牌視覺概念", "用故事形式介紹一個產品或服務"]
+      },
+      S: {
+        name: "社會型",
+        ability: "溝通協作",
+        colorClass: "S",
+        description: "你偏向喜歡幫助、教導、支持別人，並享受與人溝通和合作。你通常重視人際關係、成長和正面影響。",
+        business: "在組織中，懂得理解人和帶動人的人才非常重要，可連繫到人力資源、培訓、服務管理、客戶關係、航運服務協調及代理關係管理。",
+        pathways: ["人力資源管理", "培訓與人才發展", "服務管理", "客戶關係管理", "航運服務協調", "客戶及代理關係管理"],
+        activities: ["參與義工、mentoring 或學生大使活動", "訪問一位服務、物流或航運行業從業員", "設計一個改善顧客體驗的小建議"]
+      },
+      E: {
+        name: "企業型",
+        ability: "領導推動",
+        colorClass: "E",
+        description: "你偏向喜歡帶領、說服、設定目標和推動事情發生。你通常享受影響別人、管理項目和把想法變成行動。",
+        business: "這與商業及管理方向非常接近，特別適合管理、創業、市場開發、商務拓展、船舶經紀、租船管理及項目領導方向。",
+        pathways: ["創業與管理", "市場開發", "銷售與商務拓展", "項目管理", "船舶經紀", "租船管理"],
+        activities: ["參加創業或商業提案比賽", "擔任小組 leader", "為一個產品、服務或物流方案設計 pitch presentation"]
+      },
+      C: {
+        name: "常規型",
+        ability: "系統管理",
+        colorClass: "C",
+        description: "你偏向喜歡清晰規則、準確、秩序、文件、數字或系統。你通常重視細節、穩定性和可靠流程。",
+        business: "任何成功組織都需要系統化人才，這可連繫到會計、行政、合規、航運文件、海事保險、資訊系統及流程管理。",
+        pathways: ["會計與財務營運", "行政與合規", "資訊系統管理", "流程及品質管理", "海事保險", "航運文件及合約管理"],
+        activities: ["整理一份活動預算或時間表", "學習基本會計、財務紀錄或文件管理", "為小組 project 設計清晰分工及流程"]
+      }
+    };
+
+    const skillAdvice = {
+      "實踐執行": "你可進一步學習營運管理、項目執行、物流及服務流程設計，將想法有效落地。",
+      "數據分析": "你可進一步學習商業數據分析、市場研究、風險管理和決策工具，提升以證據解決問題的能力。",
+      "創意表達": "你可進一步學習品牌管理、內容行銷和消費者洞察，將創意變成有市場價值的作品。",
+      "溝通協作": "你可進一步學習人力資源、服務管理、客戶關係和跨部門協作，提升與人合作及影響他人的能力。",
+      "領導推動": "你可進一步學習管理、創業、市場開發、商務拓展和項目領導，將想法推動成具體成果。",
+      "系統管理": "你可進一步學習會計、資訊系統、流程管理、合規和營運控制，建立可靠而高效的工作方法。"
+    };
+
+    function getValue(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function getScore(id) {
+      const value = parseInt(document.getElementById(id).value, 10);
+      if (isNaN(value)) return 0;
+      return Math.max(0, Math.min(3, value));
+    }
+
+    function getRIASECCode(scores) {
+      const sorted = Object.entries(scores)
+        .sort((a, b) => {
+          if (b[1] !== a[1]) return b[1] - a[1];
+          return "RIASEC".indexOf(a[0]) - "RIASEC".indexOf(b[0]);
+        });
+
+      const topScore = sorted[0][1];
+      if (topScore === 0) return [];
+
+      return sorted
+        .filter(([letter, score]) => score > 0)
+        .slice(0, 3);
+    }
+
+    function buildCodeHTML(codeArray) {
+      if (codeArray.length === 0) {
+        return "<p>暫時未能生成 RIASEC Code，請輸入分數。</p>";
+      }
+
+      return `
+        <div class="code-display">
+          ${codeArray.map(([letter]) => `
+            <div class="code-letter ${typeInfo[letter].colorClass}">${letter}</div>
+          `).join("")}
+        </div>
+        <p><strong>你的初步 RIASEC Code：</strong>${codeArray.map(([letter]) => letter).join("")}</p>
+      `;
+    }
+
+    function buildScoreBars(scores) {
+      const colors = {
+        R: "#64748b",
+        I: "#2563eb",
+        A: "#7c3aed",
+        S: "#14b8a6",
+        E: "#ea580c",
+        C: "#16a34a"
+      };
+
+      return `
+        <div class="score-bar">
+          ${Object.entries(scores).map(([letter, score]) => `
+            <div class="bar-row">
+              <span>${letter}</span>
+              <div class="bar-bg">
+                <div class="bar-fill" style="width:${(score / 3) * 100}%; background:${colors[letter]};"></div>
+              </div>
+              <span>${score}</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function getAgeGroup(age) {
+      const n = parseInt(age, 10);
+      if (isNaN(n)) return "unknown";
+      if (n <= 15) return "junior";
+      if (n <= 18) return "senior";
+      if (n <= 22) return "tertiary";
+      return "adult";
+    }
+
+    function getStageAdvice(ageGroup, stage, goalClarity) {
+      let base = "";
+
+      if (ageGroup === "junior" || stage === "初中學生") {
+        base = "你現階段最重要不是太早決定一份職業，而是擴闊接觸面。建議你多參與不同活動，例如創作、服務、學生組織、簡單商業任務或校內 project，觀察自己在哪些情境最投入。";
+      } else if (ageGroup === "senior" || stage === "高中學生" || stage === "準備升學") {
+        base = "你現階段可以開始把興趣連接到選科、升學及未來能力。建議你同時考慮三件事：自己喜歡的活動、自己願意訓練的能力，以及相關課程能否提供實習、project 或業界接觸。";
+      } else if (ageGroup === "tertiary" || stage === "副學士 / 高級文憑學生" || stage === "大學生") {
+        base = "你現階段適合把 RIASEC 結果轉化為可展示的能力證據。建議你建立 portfolio、參與 internship、case competition、research project 或社群內容創作，令興趣變成履歷上的具體成果。";
+      } else if (ageGroup === "adult" || stage === "在職人士 / 轉型探索" || stage === "準備就業") {
+        base = "你現階段可重點思考如何把過往經驗重新包裝成未來能力。建議你盤點已有技能，再補充市場需要的能力，例如數據、管理、溝通、營運、品牌、物流、風險管理或系統管理。";
+      } else {
+        base = "你可以先把這份結果視為自我探索起點，再透過課程、活動、實習、訪問和小型 project 驗證自己的方向。";
+      }
+
+      if (goalClarity === "未清晰，只想探索") {
+        return base + " 由於你目前目標未完全清晰，建議先做「廣泛探索」：每個月試一個新活動，記錄自己喜歡甚麼、不喜歡甚麼。";
+      }
+
+      if (goalClarity === "有幾個方向，但未決定") {
+        return base + " 由於你有幾個方向但未決定，建議用「小實驗」比較，例如訪問不同職業人士、參與短期體驗或完成一個 mini project。";
+      }
+
+      if (goalClarity === "已有大概方向") {
+        return base + " 由於你已有大概方向，建議開始建立相關能力證明，例如作品集、活動經驗、比賽紀錄、實習或專題報告。";
+      }
+
+      if (goalClarity === "已有明確目標") {
+        return base + " 由於你已有明確目標，建議你設計 3–6 個月行動計劃，逐步累積技能、作品、人脈和實際經驗。";
+      }
+
+      return base;
+    }
+
+    function createGoalAdvice(goal, codeArray) {
+      const lowerGoal = goal.toLowerCase();
+
+      if (
+        lowerGoal.includes("shipping") ||
+        lowerGoal.includes("logistics") ||
+        lowerGoal.includes("supply chain") ||
+        goal.includes("航運") ||
+        goal.includes("物流") ||
+        goal.includes("供應鏈") ||
+        goal.includes("海事") ||
+        goal.includes("船務") ||
+        goal.includes("港口")
+      ) {
+        return "你的目標與航運、物流、供應鏈或營運管理有關。你可以發展實踐執行、系統管理、數據分析和溝通協作能力，學習如何在真實商業及國際行業場景中處理流程、資源、風險和客戶需要。";
+      }
+
+      if (lowerGoal.includes("marketing") || goal.includes("市場") || goal.includes("推廣") || goal.includes("品牌")) {
+        return "你的目標與品牌、市場推廣或消費者溝通有關。你可以特別發展創意表達、數據分析和溝通能力，學習如何把 idea 變成能吸引目標客群的 campaign。";
+      }
+
+      if (lowerGoal.includes("business") || goal.includes("創業") || goal.includes("管理") || goal.includes("生意")) {
+        return "你的目標與管理或創業有關。你可以學習如何設定目標、理解市場、管理資源和帶領團隊，將個人興趣轉化成可持續的項目或事業。";
+      }
+
+      if (lowerGoal.includes("data") || goal.includes("數據") || goal.includes("分析") || goal.includes("金融")) {
+        return "你的目標與分析或決策有關。你可以提升數據分析、商業研究、風險管理和財務理解能力，學習用證據支持判斷和解決問題。";
+      }
+
+      if (lowerGoal.includes("music") || goal.includes("音樂") || goal.includes("設計") || goal.includes("創作") || goal.includes("影像")) {
+        return "你的目標與創意產業有關。除了創作能力，你亦可學習品牌、市場、版權、項目管理和創業思維，讓作品更容易被看見、被理解和產生價值。";
+      }
+
+      if (lowerGoal.includes("teach") || goal.includes("教") || goal.includes("社工") || goal.includes("幫助")) {
+        return "你的目標與幫助他人或教育有關。你可以發展溝通、培訓、人力資源和服務管理能力，將助人的熱情變成有系統、有影響力的專業方向。";
+      }
+
+      if (lowerGoal.includes("airline") || goal.includes("航空") || goal.includes("服務") || goal.includes("酒店") || goal.includes("旅遊")) {
+        return "你的目標與服務行業有關。你可以發展服務管理、客戶關係、溝通協作和營運管理能力，學習如何在真實商業環境中創造良好顧客體驗。";
+      }
+
+      const top = codeArray[0][0];
+      return `根據你的主要傾向 ${top} ${typeInfo[top].name}，你可以先由 ${typeInfo[top].ability} 相關的活動開始探索，再逐步加入商業知識，例如市場理解、項目管理、團隊合作、營運流程、物流、風險管理和資源運用。`;
+    }
+
+    function getModeAdvice(mode) {
+      if (mode === "實作活動 / Project-based") {
+        return "你適合透過 project-based learning 發展自己。建議將興趣變成具體作品或活動，例如籌辦活動、設計服務流程、規劃物流方案或完成一個商業小專案。";
+      }
+      if (mode === "研究分析 / Research-based") {
+        return "你適合透過資料搜集和分析建立方向。建議你嘗試市場研究、問卷分析、行業比較、物流個案研究或商業風險分析，訓練有根據的判斷。";
+      }
+      if (mode === "創作展示 / Creative output") {
+        return "你適合透過創作輸出展示能力。建議你建立作品集，例如短片、海報、文章、音樂、品牌概念或社交媒體內容。";
+      }
+      if (mode === "與人合作 / Team-based") {
+        return "你適合透過團隊合作發展能力。建議你參與學生組織、義工、服務學習或小組 project，訓練溝通和協作。";
+      }
+      if (mode === "比賽挑戰 / Competition-based") {
+        return "你適合透過比賽或挑戰推動自己。建議參與 business case competition、創業比賽、演講比賽、創意提案比賽或物流/營運方案挑戰。";
+      }
+      if (mode === "實習工作 / Workplace-based") {
+        return "你適合透過真實工作場景了解自己。建議尋找短期實習、job shadowing、part-time 或義務工作，觀察自己是否享受該行業的日常任務。";
+      }
+      return "你可以嘗試不同學習方式，例如 project、研究、創作、團隊合作、比賽或實習，看看哪一種最能激發你的投入感。";
+    }
+
+    function buildActionPlan(ageGroup, codeArray, skill) {
+      const top = codeArray[0][0];
+      const second = codeArray[1] ? codeArray[1][0] : top;
+
+      let phase1 = "";
+      let phase2 = "";
+      let phase3 = "";
+
+      if (ageGroup === "junior") {
+        phase1 = "嘗試三種不同活動：一個創作類、一個服務類、一個商業、物流或團隊活動。";
+        phase2 = "記錄每次活動後的感受：我是否投入？我是否願意再做？我學到甚麼？";
+        phase3 = "選出最有興趣的一類，與老師或家長討論可延伸的科目和活動。";
+      } else if (ageGroup === "senior") {
+        phase1 = "了解 2–3 個與你 RIASEC 組合相關的升學或職業方向，包括商業、管理、市場、物流、航運服務或服務管理等方向。";
+        phase2 = "完成一個小作品或小研究，例如 market research、campaign idea、service proposal、物流流程分析或活動計劃。";
+        phase3 = "把你的結果連接到選科、課程選擇、比賽、義工、暑期活動或行業參觀。";
+      } else if (ageGroup === "tertiary") {
+        phase1 = "建立一個可展示能力的 portfolio item，例如 case study、content campaign、data report、物流方案、服務改善建議或活動成果。";
+        phase2 = "尋找相關 internship、student ambassador、比賽、研究助理、校內 leadership 或行業參觀機會。";
+        phase3 = "整理 LinkedIn / CV，把你的興趣轉化成技能、經驗和成果描述。";
+      } else {
+        phase1 = "盤點現有經驗，找出與 RIASEC 結果相符的可轉移技能。";
+        phase2 = "補充一項市場需要的能力，例如數據、管理、品牌、溝通、營運、物流、風險管理或系統管理。";
+        phase3 = "建立一個轉型作品或成果，例如 project proposal、portfolio、professional profile 或短期證書。";
+      }
+
+      const topActivity = typeInfo[top].activities[0];
+      const secondActivity = typeInfo[second].activities[1] || typeInfo[second].activities[0];
+
+      return `
+        <div class="timeline">
+          <div class="timeline-item">
+            <strong>第 1 步：探索與確認</strong>
+            <span>${phase1}</span>
+          </div>
+          <div class="timeline-item">
+            <strong>第 2 步：建立小成果</strong>
+            <span>${phase2}</span>
+          </div>
+          <div class="timeline-item">
+            <strong>第 3 步：連接升學 / 職涯</strong>
+            <span>${phase3}</span>
+          </div>
+          <div class="timeline-item">
+            <strong>建議即時行動</strong>
+            <span>${topActivity}；亦可嘗試 ${secondActivity}。</span>
+          </div>
+          <div class="timeline-item">
+            <strong>重點發展能力</strong>
+            <span>${skill ? skill + "：" + (skillAdvice[skill] || "") : "請先選擇一項你最想發展的未來能力。"}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function generateAdvice() {
+      const name = getValue("name") || "同學";
+      const age = getValue("age");
+      const gender = getValue("gender");
+      const stage = getValue("stage");
+      const goalClarity = getValue("goalClarity");
+      const preferredMode = getValue("preferredMode");
+      const goal = getValue("goal") || "尚未填寫明確目標";
+      const skill = getValue("skill");
+
+      const scores = {
+        R: getScore("r"),
+        I: getScore("i"),
+        A: getScore("a"),
+        S: getScore("s"),
+        E: getScore("e"),
+        C: getScore("c")
+      };
+
+      const codeArray = getRIASECCode(scores);
+
+      if (codeArray.length === 0) {
+        document.getElementById("result").innerHTML = `
+          <div class="result-card">
+            <h3>請先輸入分數</h3>
+            <p>請在 R、I、A、S、E、C 六項中輸入你的工作紙分數，再生成建議。</p>
+          </div>
+        `;
+        return;
+      }
+
+      const ageGroup = getAgeGroup(age);
+      const primary = codeArray[0][0];
+      const secondary = codeArray[1] ? codeArray[1][0] : null;
+      const tertiary = codeArray[2] ? codeArray[2][0] : null;
+
+      const primaryInfo = typeInfo[primary];
+      const secondaryInfo = secondary ? typeInfo[secondary] : null;
+      const tertiaryInfo = tertiary ? typeInfo[tertiary] : null;
+
+      const combinedStrengths = codeArray.map(([letter]) => typeInfo[letter].ability).join(" + ");
+
+      const pathwaySet = new Set();
+      const activitySet = new Set();
+
+      codeArray.forEach(([letter]) => {
+        typeInfo[letter].pathways.forEach(p => pathwaySet.add(p));
+        typeInfo[letter].activities.forEach(a => activitySet.add(a));
+      });
+
+      const pathways = Array.from(pathwaySet).slice(0, 6);
+      const activities = Array.from(activitySet).slice(0, 6);
+
+      const stageAdvice = getStageAdvice(ageGroup, stage, goalClarity);
+      const goalAdvice = createGoalAdvice(goal, codeArray);
+      const modeAdvice = getModeAdvice(preferredMode);
+
+      document.getElementById("result").innerHTML = `
+        <div class="result-card">
+          <h3>${name} 的初步生涯方向分析</h3>
+          <p>
+            ${age ? `年齡：${age}｜` : ""}
+            ${gender ? `性別：${gender}｜` : ""}
+            ${stage ? `階段：${stage}｜` : ""}
+            ${goalClarity ? `目標清晰度：${goalClarity}` : ""}
+          </p>
+          ${buildCodeHTML(codeArray)}
+          ${buildScoreBars(scores)}
+          <p>
+            你的主要組合可理解為：<strong>${combinedStrengths}</strong>。
+            這代表你未來不一定只適合單一路線，而是可以把幾種能力結合起來，建立自己的獨特方向。
+          </p>
+        </div>
+
+        <div class="result-card">
+          <h3>你的核心特質</h3>
+          <p><strong>${primary} ${primaryInfo.name}：</strong>${primaryInfo.description}</p>
+          ${secondaryInfo ? `<p><strong>${secondary} ${secondaryInfo.name}：</strong>${secondaryInfo.description}</p>` : ""}
+          ${tertiaryInfo ? `<p><strong>${tertiary} ${tertiaryInfo.name}：</strong>${tertiaryInfo.description}</p>` : ""}
+        </div>
+
+        <div class="result-card">
+          <h3>按年齡 / 階段調整的建議</h3>
+          <p>${stageAdvice}</p>
+        </div>
+
+        <div class="result-card">
+          <h3>你的目標與發展方向</h3>
+          <p><strong>你填寫的目標：</strong>${goal}</p>
+          <p>${goalAdvice}</p>
+          <p><strong>較適合你的學習方式：</strong>${preferredMode || "尚未選擇"}</p>
+          <p>${modeAdvice}</p>
+        </div>
+
+        <div class="result-card">
+          <h3>可能適合探索的未來路向</h3>
+          <div class="pathway-grid">
+            ${pathways.map(p => `
+              <div class="mini-card">
+                <strong>${p}</strong>
+                <p>可作為升學、實習、活動參與或未來職涯探索方向。</p>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+
+        <div class="result-card">
+          <h3>建議嘗試的活動</h3>
+          <ul>
+            ${activities.map(a => `<li>${a}</li>`).join("")}
+          </ul>
+        </div>
+
+        <div class="result-card">
+          <h3>商業世界如何放大你的優勢</h3>
+          <p>${primaryInfo.business}</p>
+          ${secondaryInfo ? `<p>${secondaryInfo.business}</p>` : ""}
+          ${tertiaryInfo ? `<p>${tertiaryInfo.business}</p>` : ""}
+          <p>
+            商科的價值不只是「做生意」，而是學習如何理解人、資源、數據、品牌、組織、流程、市場和國際行業。
+            無論你的興趣是創意、分析、助人、領導、實踐或系統整理，商業知識都可以幫你把個人能力轉化成更大的影響力。
+          </p>
+        </div>
+
+        <div class="result-card">
+          <h3>3-Step Action Plan</h3>
+          ${buildActionPlan(ageGroup, codeArray, skill)}
+        </div>
+
+        <div class="result-card">
+          <h3>反思問題</h3>
+          <ul>
+            <li>我最享受的是哪一類活動：創作、分析、幫助人、帶領人、實作，還是整理系統？</li>
+            <li>我希望未來的工作有更多自由創作、穩定流程、人際互動，還是挑戰和影響力？</li>
+            <li>如果我要把興趣變成能力，我下一個月可以做哪一個小行動？</li>
+            <li>哪一種商業能力可以幫我放大自己的優勢：市場、數據、管理、溝通、財務、營運、物流，還是系統管理？</li>
+          </ul>
+        </div>
+
+        <div class="disclaimer">
+          以上結果由 UOW College Hong Kong Faculty of Business 生成，主要作課堂討論及自我探索用途。
+          建議你結合老師回饋、個人經驗、學業表現及真實行業資料再作進一步決定。
+        </div>
+      `;
+    }
+
+    function saveAsPDF() {
+      window.print();
+    }
+
+    function resetForm() {
+      document.getElementById("name").value = "";
+      document.getElementById("age").value = "";
+      document.getElementById("gender").value = "";
+      document.getElementById("stage").value = "";
+      document.getElementById("goalClarity").value = "";
+      document.getElementById("preferredMode").value = "";
+      document.getElementById("goal").value = "";
+      document.getElementById("skill").value = "";
+      ["r", "i", "a", "s", "e", "c"].forEach(id => {
+        document.getElementById(id).value = 0;
+      });
+
+      document.getElementById("result").innerHTML = `
+        <div class="result-placeholder">
+          請先輸入資料及 RIASEC 分數，然後按「生成我的未來路向」。
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
